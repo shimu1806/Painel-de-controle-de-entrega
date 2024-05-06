@@ -13,20 +13,67 @@
 
 
 <article class="container-main">
+    <!-- container fundo -->
     <section class="container-base">
+        
+        <!-- for status in pedido_status -->
         <div class="container-mural">
-            <div id="boxes" class="box1">logo</div>
-            <div id="boxes" class="box2">NÃO INICIADO</div>
-            <div id="boxes" class="box3">EM ANDAMENTO</div>
-            <div id="boxes" class="box4">FINALIZADO</div>
-            <div id="boxes" class="box5">PAUSA</div>
-            <div id="boxes" class="box6">DIVERGÊNCIA</div>
+            <div id="boxes" class="box1">
+                <img src="../../static/src/image.png">
+            </div>
+            <div id="boxes" class="box2">
+                <h4>NÃO INICIADO</h4>
+                <p>32</p>
+            </div>
+            <div id="boxes" class="box3">
+                <h4>EM ANDAMENTO</h4>
+                <p>12</p>
+            </div>
+            <div id="boxes" class="box4">
+                <h4>FINALIZADO</h4>
+                <p>42</p>
+            </div>
+            <div id="boxes" class="box5">
+                <h4>PAUSA</h4>
+                <p>1</p>
+            </div>
+            <div id="boxes" class="box6">
+                <h4>DIVERGÊNCIA</h4>
+                <p>3</p>
+            </div>
         </div>
+        <!-- endfor -->
+        
+        <!-- container tabela -->
         <div class="container-tabela">
             <table>
-                <iframe title="Pedidos de Vendas 2023 - (HB)" width="1680" height="720" src="https://app.powerbi.com/view?r=eyJrIjoiYWUzY2QzZTAtZGZmNC00ZmRiLWJlMWQtMzk5MmEyZDQ2ZmZjIiwidCI6ImM1NGY2MmY4LTJiZTMtNDZkNy05OTQ3LWVlNGEzY2QyZTc5NSJ9" frameborder="0" allowFullScreen="true"></iframe>
+                <thead class="thead">
+
+                    <tr class="thead-tr">
+                        <td>campo 1</td>
+                        <td>campo 2</td>
+                        <td>campo 3</td>
+                        <td>status</td>
+                    </tr>
+
+                </thead>
+
+            <tbody class="tbody">
+
+            {% for item in data %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.userId }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.completed }}</td>
+            </tr>
+            {% endfor %}
+
+            </tbody>
+
             </table>
         </div>
+        
     </section>
 </article>
 

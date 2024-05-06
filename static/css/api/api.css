@@ -16,6 +16,8 @@
     margin: 5%;
     background-color: rgb(41,36,36);
     display: flex;
+    gap: 10px;
+    flex-basis: calc(48% - 10%);
     padding: 2rem;* {
         background-color: black;
         color: azure;
@@ -50,16 +52,13 @@
     }
     
     #boxes {
-        border: 2px solid rgb(211, 0, 0);
         width: calc(100% - 20%);
-        height: calc(100% - 20%); /* New width and height properties */
+        height: calc(100% - 20%);
         margin: 0;
         aspect-ratio: 1;
         display: flex;
         justify-content: center;
-        align-items: flex-start;
-        background-color: azure;
-        color: blue;
+        align-items: center;
         border-radius: 2rem;
     }
 }
@@ -77,8 +76,88 @@
 }
 
 #boxes {
-    border: 2px solid rgb(211, 0, 0);
     width: 30%;
     height: 30%;
-    margin: 5%;
+    font-size: 1.5rem;
+    flex-direction: column;
+    display: flex;
+    padding: 2rem;
 }
+
+#boxes h4 {
+    font-size: 1.5rem;
+    text-decoration: underline;
+    text-align: center;
+    font-weight: bold;
+    background-color: transparent;
+}
+
+#boxes p {
+    background-color: transparent;
+    
+}
+
+.box1 {
+    background: white;
+
+}
+
+.box1 img {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 2rem;
+    opacity: 0.3;
+}
+
+.box2 {
+    background: #256AC6;
+}
+
+.box3 {
+    background: #FFA317;
+}
+
+.box4 {
+    background: #00BF63;
+}
+
+.box5 {
+    background: #737373;
+}
+
+.box6 {
+    background: #FF3131;
+}
+
+.container-tabela {
+    width: 100%;
+    overflow-x: auto;    
+    border-radius: 0.6rem;
+}
+
+.container-tabela table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.container-tabela .thead td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: #fff;
+    background-color: #737373;
+}
+
+
+.container-tabela .tbody td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.container-tabela td {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
