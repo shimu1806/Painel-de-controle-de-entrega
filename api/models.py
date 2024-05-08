@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
    
 
         email = self.normalize_email(email)
-        user = self.model(
+        user  = self.model(
             email=email,
             username=username,
         )
@@ -37,7 +37,8 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = ['email']
 
 class Todo(models.Model):
-    userId = models.IntegerField()
-    id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=100)
-    completed = models.BooleanField(default=False)
+
+    userId      = models.IntegerField()
+    id          = models.AutoField(primary_key=True)
+    title       = models.CharField(max_length=100)
+    completed   = models.BooleanField(default=False)
