@@ -35,3 +35,9 @@ class User(AbstractBaseUser):
 
     USERNAME_FIELD  = 'username'
     REQUIRED_FIELDS = ['email']
+
+class Todo(models.Model):
+    userId = models.IntegerField()
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    completed = models.BooleanField(default=False)
