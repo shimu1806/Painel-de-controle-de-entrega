@@ -3,5 +3,5 @@ from .models import User
 
 class filtercode_serializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['__all__']
+        model   = User
+        fields  = ['__all__']
