@@ -17,7 +17,21 @@ def index(request):
         return render(request, 'api/index.html', {'data': data})
 
 def fetch_data(request):
-    # Fetch 'data' do endpoint
+    
+    """
+    Fetch 'data' from the specified endpoint.
+
+    Parameters:
+    request (HttpRequest): The HTTP request object.
+
+    Returns:
+    HttpResponse: An HTTP response object.
+
+    This function sends a POST request to the specified endpoint with a JSON payload containing a SQL query.
+    It then processes the JSON response from the endpoint and creates instances of the Produto model from the data.
+    Finally, it updates the Produto model instances in the database and returns an HTTP response with the updated data.
+    """
+
     payload = {
         "PAGINA": 1,
         "PORPAGINA": 100,
@@ -26,11 +40,10 @@ def fetch_data(request):
     }
     response = requests.post('http://suntechsupplies170773.protheus.cloudtotvs.com.br:1907/rest/restqry', json=payload)
     queryset_response = response.json()
-    print (queryset_response)
     aux = []
 
+
     for produto in queryset_response['RETORNOS']:
-        print(produto["CB7_STATUS"])
         obj = Produto(            
                 CB7_STATUS  = produto["CB7_STATUS"],
                 CB7_FILIAL  = produto["CB7_FILIAL"],

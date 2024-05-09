@@ -38,7 +38,9 @@ class User(AbstractBaseUser):
 
 """
 |*****************************************************************|
+|                                                                 |
 |   CLASSE DE TESTE - https://jsonplaceholder.typicode.com/todos  |
+|                                                                 |
 |*****************************************************************|
 """
 
@@ -51,8 +53,8 @@ class Todo(models.Model):
 
 class Produto(models.Model):
 
-    CB7_STATUS  = models.CharField(max_length=50)       # Campo status
-    CB7_FILIAL  = models.CharField(max_length=50)       # Campo código da filial '01 / 02 / 03'
+    CB7_STATUS  = models.CharField(max_length=50)       # Campo status                                  -> Deve ser colorido
+    CB7_FILIAL  = models.CharField(max_length=50)       # Campo código da filial '01 / 02 / 03'                 * primarykey
     CB7_ORDSEP  = models.CharField(max_length=50)       # Campo código ordem de separação 6 digitos
     CB7_PEDIDO  = models.CharField(max_length=50)       # Campo código Pedido 6 digitos
     CB7_CLIENT  = models.CharField(max_length=6)        # Campo código cliente C###### 
@@ -64,8 +66,8 @@ class Produto(models.Model):
     CB7_HRINIS  = models.CharField(max_length=5)        # Campo hora inicio
     CB7_DTFIMS  = models.CharField(max_length=50)       # Campo data fim 
     CB7_HRFIMS  = models.CharField(max_length=5)        # Campo hora fim
-    CB7_NOTA    = models.CharField(max_length=50)       # Campo código da nota
-    CB7_SERIE   = models.CharField(max_length=50)       # Campo serie ' 1 '
+    CB7_NOTA    = models.CharField(max_length=50)       # Campo código da nota                                  * primarykey
+    CB7_SERIE   = models.CharField(max_length=50)       # Campo serie ' 1 '                                     * primarykey
     CB8_PROD    = models.CharField(max_length=50)       # Campo codigo de produção
     B1_DESC     = models.CharField(max_length=50)       # Campo descrição produto
     LINE        = models.IntegerField(default=0)    

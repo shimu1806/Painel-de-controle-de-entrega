@@ -1,3 +1,9 @@
+/*      
+
+        INICIO DE ESTILIZAÇÃO BASE
+
+*/
+
 * {
     background-color: rgb(19, 18, 18);
     color: azure;
@@ -11,6 +17,12 @@
     padding: 2rem;
     border-radius: 0.6rem;
 }
+
+/*      
+        FIM DE ESTILIZAÇÃO BASE
+        INICIO DE ESTILIZAÇÃO CHECKBOX
+
+*/
 
 .container-mural {
     margin: 5%;
@@ -130,6 +142,83 @@
     background: #FF3131;
 }
 
+
+/*      
+        FIM DE ESTILIZAÇÃO MURAL
+        INICIO DE ESTILIZAÇÃO CHECKBOX
+
+*/
+
+
+/* Create a custom checkbox */
+.custom-checkbox {
+    position: relative;
+    cursor: pointer;
+    padding-left: 25px;
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+    background: #fff;
+    border-radius: 3px;
+    border: 1px solid #d1d1d1;
+}
+
+/* When the checkbox is checked, add a background color and a checkmark */
+.custom-checkbox input[type="checkbox"]:checked ~ .checkmark {
+    background-color: #2196f3;
+}
+
+/* Create the checkmark */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border-radius: 2px;
+    border: 1px solid #d1d1d1;
+    transform: scale(1);
+    transition: 0.2s;
+}
+
+/* When the checkbox is checked, add a blue background color to the checkmark */
+.custom-checkbox input[type="checkbox"]:checked ~ .checkmark {
+    background-color: #2196f3;
+    border-color: #2196f3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when the checkbox is checked */
+.custom-checkbox input[type="checkbox"]:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.custom-checkbox .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+/*      
+
+        FIM DE ESTILIZAÇÃO CHECKBOX
+        INICIO DE ESTILIZAÇÃO TABELA
+
+*/
+
+
 .container-tabela {
     width: 100%;
     overflow-x: auto;    
@@ -161,3 +250,8 @@
     color: rgb(0, 0, 0);
 }
 
+/*      
+
+        FIM DE ESTILIZAÇÃO TABELA
+        
+*/
