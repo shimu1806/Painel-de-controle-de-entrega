@@ -1,13 +1,14 @@
 import requests
 import json
 from .models import Produto
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url="api/login")
 def index(request):    
+    # Gera queryset do banco de dados e faz display no html
     data = Produto.objects.all()
     if data is None:
         fetch_data(request)
@@ -15,12 +16,11 @@ def index(request):
     else:
         return render(request, 'api/index.html', {'data': data})
 
-
 def fetch_data(request):
     # Fetch 'data' do endpoint
     payload = {
         "PAGINA": 1,
-        "PORPAGINA": 10,
+        "PORPAGINA": 100,
             "QUERY": "SELECT CASE WHEN (CB7_DIVERG='1') THEN '4' WHEN (CB7_STATPA = '1' AND CB7_DIVERG='') THEN '3' WHEN (CB7_STATUS IN ('1','2','3','4','5','6','7','8') AND CB7_STATPA = '' AND CB7_DIVERG='') THEN '2' WHEN (CB7_STATUS = '0' AND CB7_STATPA = '' AND CB7_DIVERG='') THEN '1' WHEN (CB7_STATUS = '9' AND CB7_STATPA = '' AND CB7_DIVERG='') THEN '0' END AS CB7_STATUS, CB7010.CB7_FILIAL, CB7010.CB7_ORDSEP, CB7010.CB7_PEDIDO, CB7010.CB7_CLIENT, CB7010.CB7_LOJA, SA1010.A1_NOME, CB7010.CB7_DTEMIS, CB7010.CB7_HREMIS, CB7010.CB7_DTINIS, CB7010.CB7_HRINIS, CB7010.CB7_DTFIMS, CB7010.CB7_HRFIMS, CB7010.CB7_NOTA, CB7010.CB7_SERIE, CB8010.CB8_PROD, SB1010.B1_DESC FROM CB7010 INNER JOIN CB8010 ON CB8_FILIAL = CB7010.CB7_FILIAL AND CB8_ORDSEP = CB7010.CB7_ORDSEP AND CB8_PEDIDO = CB7010.CB7_PEDIDO AND CB8010.D_E_L_E_T_ = '' INNER JOIN SA1010 ON A1_COD = CB7010.CB7_CLIENT AND A1_LOJA = CB7010.CB7_LOJA AND SA1010.D_E_L_E_T_ = '' INNER JOIN SB1010 ON B1_COD = CB8010.CB8_PROD AND SB1010.D_E_L_E_T_ = '' WHERE 0=0 AND CB7010.CB7_DTEMIS BETWEEN '20240508' AND '20240508' AND CB7010.D_E_L_E_T_ = ''",
             "ORDEM": "CB7_STATUS, CB7_ORDSEP, CB7_PEDIDO"
     }
@@ -65,7 +65,7 @@ def login(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            return render(request, 'api/index.html')
+            return redirect('api/index.html')
         else:
             return render(request, 'api/login.html')
     else:
