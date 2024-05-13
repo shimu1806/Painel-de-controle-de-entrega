@@ -1,11 +1,6 @@
-* {
-    background-color: rgb(19, 18, 18);
-    color: azure;
-}
-
 .container-base {
     margin: 5%;
-    background-color: rgb(41,36,36);
+    background-color: var(--primary-color);
     display: flex;
     flex-direction: column;
     padding: 2rem;
