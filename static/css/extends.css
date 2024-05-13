@@ -1,0 +1,9 @@
+/* - global - */
+@import './variables.css';
+@import './globals.css';
+
+/* - api - */
+@import './api/container-main.css';
+@import './api/mural.css';
+@import './api/boxes.css';
+@import './api/tabela.css';
