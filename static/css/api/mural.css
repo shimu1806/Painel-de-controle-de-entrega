@@ -5,8 +5,48 @@
     height: 80%;
     display: flex;
     flex-direction: row;
-    margin: 5%;
-    padding: 2rem 0;
+    margin: 2%;
+    padding: 0rem 0;
     text-align: center;
+    align-items: center;
 }
 
+.status-0 {
+    background-color: green;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-1 {
+    background-color: blue;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-2 {
+    background-color: yellow;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-3 {
+    background-color: gray;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-4 {
+    background-color: red;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}

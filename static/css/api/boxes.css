@@ -13,9 +13,6 @@
 #boxes {
     width: 30%;
     height: 30%;
-    flex-direction: column;
-    display: flex;
-    padding: 2rem;
     border-radius: 0.6rem;
     margin: 0.6rem;
 }
@@ -35,32 +32,39 @@
 
 .box1 {
     background: white;
+    padding: 1rem;
 }
 
 .box1 img {
     background-color: white;
-    width: 100%;
-    height: 100%;
-    border-radius: 2rem;
+    width: 80%;
+    height: 80%;
     opacity: 0.3;
 }
 
+
+
 .box2 {
     background: #256AC6;
+    padding: 2rem;
 }
 
 .box3 {
     background: #FFA317;
+    padding: 2rem;
 }
 
 .box4 {
     background: #00BF63;
+    padding: 2rem;
 }
 
 .box5 {
     background: #737373;
+    padding: 2rem;
 }
 
 .box6 {
     background: #FF3131;
+    padding: 2rem;
 }

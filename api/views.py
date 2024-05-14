@@ -7,15 +7,21 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 
-@login_required(login_url="api/login")
+#@login_required(login_url="api/login")
 def index(request):    
     # Gera queryset do banco de dados e faz display no html
     data = Produto.objects.all()
-    if data is None:
+    paginator = Paginator(data, 25)  # Show 25 contacts per page.
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    if not data:
         fetch_data(request)
-        return render(request, 'api/index.html', {'data': data})
+
+        return render(request, 'api/index.html', {'data': page_obj})
     else:
-        return render(request, 'api/index.html', {'data': data})
+        return render(request, 'api/index.html', {'data': page_obj})
 
 def fetch_data(request):
     
@@ -68,12 +74,6 @@ def fetch_data(request):
         aux.append(obj)
 
     Produto.objects.bulk_create(aux)
-    data = Produto.objects.all()
-    paginator = Paginator(data, 10)  # Show 25 contacts per page.
-
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'api/index.html', {'data': page_obj})
     
 @csrf_exempt
 def login(request):

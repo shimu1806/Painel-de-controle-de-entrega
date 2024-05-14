@@ -59,7 +59,7 @@
                             <tr>
                                 <td>STATUS</td>
                                 <td>FILIAL</td>
-                                <td>ORDSEP</td>
+                                <td>ORDEM</td>
                                 <td>PEDIDO</td>
                                 <td>CLIENT</td>
                                 <td>LOJA</td>
@@ -82,7 +82,7 @@
                 
                     {% for produto in data %}
                     <tr class="table table-dark table-borderless" id="pagination">
-                        <td>{{ produto.CB7_STATUS }}</td>
+                        <td><span class="status-{{ produto.CB7_STATUS }}"></span></td>
                         <td>{{ produto.CB7_FILIAL }}</td>
                         <td>{{ produto.CB7_ORDSEP }}</td>
                         <td>{{ produto.CB7_PEDIDO }}</td>
