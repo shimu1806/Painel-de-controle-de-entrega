@@ -1,11 +1,7 @@
 .container-base {
-<<<<<<< HEAD
+
     margin: 0.6rem;
     background-color: rgb(41,36,36);
-=======
-    margin: 5%;
-    background-color: var(--primary-color);
->>>>>>> tester
     display: flex;
     flex-direction: column;
     align-items: center;
