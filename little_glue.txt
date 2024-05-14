@@ -1,0 +1,21 @@
+function updateStatusCounts() {
+            fetch('http://127.0.0.1:8000/update_status_counts/') // Replace with the actual URL to fetch the updated counts
+            .then(response => response.json())
+            .then(data => {
+                    const statusContainer = document.getElementById('status-container');
+                    const statusElements = statusContainer.querySelectorAll('#box2 p,#box3 p,#box4 p,#box5 p,#box6 p');
+                    // Mapeia os campos retornados para os campos no HTML
+                $('#box2').text(data['1']);
+                $('#box3').text(data['2']);
+                $('#box4').text(data['0']);
+                $('#box5').text(data['3']);
+                $('#box6').text(data['4']);
+            
+                    statusElements.forEach((element, index) => {
+                        element.textContent = data[String(index + 1)]; // Adjust the index to match the status values in the API response
+                    });
+                });
+        }
+        
+        // Call the function periodically (e.g., every 5 seconds)
+        setInterval(updateStatusCounts, 5000);

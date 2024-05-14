@@ -3,35 +3,33 @@ import json
 from .models import Produto
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
+from django.http import JsonResponse
 
-@login_required(login_url="api/login")
+#@login_required(login_url="api/login")
 def index(request):    
     # Gera queryset do banco de dados e faz display no html
+    fetch_data(request)
     data = Produto.objects.all()
-    if data is None:
-        fetch_data(request)
-        return render(request, 'api/index.html', {'data': data})
+    paginator = Paginator(data, 25)  # Show 25 contacts per page.
+
+    page_number         = request.GET.get("page")
+    page_obj            = paginator.get_page(page_number)
+    status_counts_list  = update_status_counts(request)
+
+    print(status_counts_list)
+
+    if not data:
+        print(status_counts_list)
+        return render(request, 'api/index.html', {'data': page_obj, 'status_counts_list': status_counts_list})
     else:
-        return render(request, 'api/index.html', {'data': data})
+
+        return render(request, 'api/index.html', {'data': page_obj, 'status_counts_list': status_counts_list})
 
 def fetch_data(request):
     
-    """
-    Fetch 'data' from the specified endpoint.
-
-    Parameters:
-    request (HttpRequest): The HTTP request object.
-
-    Returns:
-    HttpResponse: An HTTP response object.
-
-    This function sends a POST request to the specified endpoint with a JSON payload containing a SQL query.
-    It then processes the JSON response from the endpoint and creates instances of the Produto model from the data.
-    Finally, it updates the Produto model instances in the database and returns an HTTP response with the updated data.
-    """
-
     payload = {
         "PAGINA": 1,
         "PORPAGINA": 100,
@@ -67,11 +65,10 @@ def fetch_data(request):
         aux.append(obj)
 
     Produto.objects.bulk_create(aux)
-    data = Produto.objects.all()
-    return render(request, 'api/index.html', {'data': data})
     
 @csrf_exempt
 def login(request):
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -83,4 +80,16 @@ def login(request):
             return render(request, 'api/login.html')
     else:
         return render(request, 'api/login.html')
+@csrf_exempt
+def update_status_counts(request):
+
+    status_counts = {
+        '1': str(Produto.objects.filter(CB7_STATUS=1).count()),
+        '2': str(Produto.objects.filter(CB7_STATUS=2).count()),
+        '0': str(Produto.objects.filter(CB7_STATUS=0).count()),
+        '3': str(Produto.objects.filter(CB7_STATUS=3).count()),
+        '4': str(Produto.objects.filter(CB7_STATUS=4).count()),
+    }
+    print(status_counts)
     
+    return JsonResponse(status_counts)

@@ -53,7 +53,7 @@ class Todo(models.Model):
 
 class Produto(models.Model):
 
-    CB7_STATUS  = models.CharField(max_length=50)       # Campo status                                  -> Deve ser colorido
+    CB7_STATUS  = models.IntegerField()                 # Campo status                                  -> Deve ser colorido
     CB7_FILIAL  = models.CharField(max_length=50)       # Campo código da filial '01 / 02 / 03'                 * primarykey
     CB7_ORDSEP  = models.CharField(max_length=50)       # Campo código ordem de separação 6 digitos
     CB7_PEDIDO  = models.CharField(max_length=50)       # Campo código Pedido 6 digitos
