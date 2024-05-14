@@ -13,11 +13,13 @@
 #boxes {
     width: 30%;
     height: 30%;
-    font-size: 1.5rem;
     flex-direction: column;
     display: flex;
     padding: 2rem;
+    border-radius: 0.6rem;
+    margin: 0.6rem;
 }
+
 
 #boxes h4 {
     font-size: 1.5rem;
@@ -29,12 +31,10 @@
 
 #boxes p {
     background-color: transparent;
-    
 }
 
 .box1 {
     background: white;
-
 }
 
 .box1 img {
