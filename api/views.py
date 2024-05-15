@@ -11,22 +11,15 @@ from django.http import JsonResponse
 #@login_required(login_url="api/login")
 def index(request):    
     # Gera queryset do banco de dados e faz display no html
-    fetch_data(request)
-    data = Produto.objects.all()
-    paginator = Paginator(data, 25)  # Show 25 contacts per page.
-
-    page_number         = request.GET.get("page")
-    page_obj            = paginator.get_page(page_number)
-    status_counts_list  = update_status_counts(request)
-
-    print(status_counts_list)
-
+    data        = Produto.objects.all()
+    paginator   = Paginator(data, 25)  # Show 25 contacts per page.
+    page_number = request.GET.get("page")
+    page_obj    = paginator.get_page(page_number)
+    
     if not data:
-        print(status_counts_list)
-        return render(request, 'api/index.html', {'data': page_obj, 'status_counts_list': status_counts_list})
+        return render(request, 'api/index.html', {'data': page_obj})
     else:
-
-        return render(request, 'api/index.html', {'data': page_obj, 'status_counts_list': status_counts_list})
+        return render(request, 'api/index.html', {'data': page_obj})
 
 def fetch_data(request):
     
@@ -82,6 +75,7 @@ def login(request):
         return render(request, 'api/login.html')
 @csrf_exempt
 def update_status_counts(request):
+    fetch_data(request)
 
     status_counts = {
         '1': str(Produto.objects.filter(CB7_STATUS=1).count()),
@@ -92,4 +86,5 @@ def update_status_counts(request):
     }
     print(status_counts)
     
+
     return JsonResponse(status_counts)
