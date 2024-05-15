@@ -32,30 +32,33 @@ def fetch_data(request):
     response = requests.post('http://suntechsupplies170773.protheus.cloudtotvs.com.br:1907/rest/restqry', json=payload)
     queryset_response = response.json()
     aux = []
-
+    new_records_count = 0
 
     for produto in queryset_response['RETORNOS']:
-        obj = Produto(            
-                CB7_STATUS  = produto["CB7_STATUS"],
-                CB7_FILIAL  = produto["CB7_FILIAL"],
-                CB7_ORDSEP  = produto["CB7_ORDSEP"],
-                CB7_PEDIDO  = produto["CB7_PEDIDO"],
-                CB7_CLIENT  = produto["CB7_CLIENT"],
-                CB7_LOJA    = produto["CB7_LOJA"],
-                A1_NOME     = produto["A1_NOME"],
-                CB7_DTEMIS  = produto["CB7_DTEMIS"],
-                CB7_HREMIS  = produto["CB7_HREMIS"],
-                CB7_DTINIS  = produto["CB7_DTINIS"],
-                CB7_HRINIS  = produto["CB7_HRINIS"],
-                CB7_DTFIMS  = produto["CB7_DTFIMS"],
-                CB7_HRFIMS  = produto["CB7_HRFIMS"],
-                CB7_NOTA    = produto["CB7_NOTA"],
-                CB7_SERIE   = produto["CB7_SERIE"],
-                CB8_PROD    = produto["CB8_PROD"],
-                B1_DESC     = produto["B1_DESC"],
-                LINE        = produto["LINE"]
-            )
-        aux.append(obj)
+       if not Produto.objects.filter(CB7_ORDSEP=produto["CB7_ORDSEP"]).exists():
+            obj = Produto(            
+                    CB7_STATUS  = produto["CB7_STATUS"],
+                    CB7_FILIAL  = produto["CB7_FILIAL"],
+                    CB7_ORDSEP  = produto["CB7_ORDSEP"],
+                    CB7_PEDIDO  = produto["CB7_PEDIDO"],
+                    CB7_CLIENT  = produto["CB7_CLIENT"],
+                    CB7_LOJA    = produto["CB7_LOJA"],
+                    A1_NOME     = produto["A1_NOME"],
+                    CB7_DTEMIS  = produto["CB7_DTEMIS"],
+                    CB7_HREMIS  = produto["CB7_HREMIS"],
+                    CB7_DTINIS  = produto["CB7_DTINIS"],
+                    CB7_HRINIS  = produto["CB7_HRINIS"],
+                    CB7_DTFIMS  = produto["CB7_DTFIMS"],
+                    CB7_HRFIMS  = produto["CB7_HRFIMS"],
+                    CB7_NOTA    = produto["CB7_NOTA"],
+                    CB7_SERIE   = produto["CB7_SERIE"],
+                    CB8_PROD    = produto["CB8_PROD"],
+                    B1_DESC     = produto["B1_DESC"],
+                    LINE        = produto["LINE"]
+                )
+            aux.append(obj)
+            new_records_count =+ 1
+    print(f"{new_records_count} cadastrado")
 
     Produto.objects.bulk_create(aux)
     
@@ -73,6 +76,8 @@ def login(request):
             return render(request, 'api/login.html')
     else:
         return render(request, 'api/login.html')
+    
+    
 @csrf_exempt
 def update_status_counts(request):
     fetch_data(request)
