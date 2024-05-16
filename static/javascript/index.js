@@ -18,4 +18,4 @@ function updateStatusCounts() {
 
   // Call the function to update the status counts
   updateStatusCounts();
-  // setInterval(updateStatusCounts, 5000);
+  setInterval(updateStatusCounts, 5000);

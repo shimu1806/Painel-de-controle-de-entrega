@@ -13,15 +13,10 @@ from django.http import JsonResponse
 #@login_required(login_url="api/login")
 def index(request):    
     # Gera queryset do banco de dados e faz display no html
-    data        = Produto.objects.all()
-    paginator   = Paginator(data, 25)  # Show 25 contacts per page.
-    page_number = request.GET.get("page")
-    page_obj    = paginator.get_page(page_number)
     
-    if not data:
-        return render(request, 'api/index.html', {'data': page_obj})
-    else:
-        return render(request, 'api/index.html', {'data': page_obj})
+
+    return render(request, 'api/index.html')
+
 
 def fetch_data(request):
     # Query que busca dados no endpoint TOTVS e alimenta db
@@ -42,56 +37,56 @@ def fetch_data(request):
 
     with transaction.atomic():
         for produto in queryset_response['RETORNOS']:
-            if Produto.objects.filter(CB7_ORDSEP=produto["CB7_ORDSEP"]).exists():
-
-                # Update existing product
-                print(f"Updating product with CB7_ORDSEP: {produto['CB7_ORDSEP']}")
-                Produto.objects.filter(CB7_ORDSEP=produto["CB7_ORDSEP"]).update(
+            try:
+                # Tenta obter o produto do banco de dados pelo CB7_ORDSEP
+                obj = Produto.objects.get(CB7_ORDSEP=produto["CB7_ORDSEP"])
+                # Atualiza o objeto com os novos dados
+                obj.CB7_STATUS = produto["CB7_STATUS"]
+                obj.CB7_FILIAL = produto["CB7_FILIAL"]
+                obj.CB7_PEDIDO = produto["CB7_PEDIDO"]
+                obj.CB7_CLIENT = produto["CB7_CLIENT"]
+                obj.CB7_LOJA = produto["CB7_LOJA"]
+                obj.A1_NOME = produto["A1_NOME"]
+                obj.CB7_DTEMIS = produto["CB7_DTEMIS"]
+                obj.CB7_HREMIS = produto["CB7_HREMIS"]
+                obj.CB7_DTINIS = produto["CB7_DTINIS"]
+                obj.CB7_HRINIS = produto["CB7_HRINIS"]
+                obj.CB7_DTFIMS = produto["CB7_DTFIMS"]
+                obj.CB7_HRFIMS = produto["CB7_HRFIMS"]
+                obj.CB7_NOTA = produto["CB7_NOTA"]
+                obj.CB7_SERIE = produto["CB7_SERIE"]
+                obj.CB8_PROD = produto["CB8_PROD"]
+                obj.B1_DESC = produto["B1_DESC"]
+                obj.LINE = produto["LINE"]
+                obj.save()
+                new_records_count += 1
+                print(f"Produto {produto['CB7_ORDSEP']} atualizado no banco de dados.")
+            except Produto.DoesNotExist:
+                # Se o produto não existir no banco de dados, crie um novo
+                obj = Produto(
                     CB7_STATUS=produto["CB7_STATUS"],
-                    CB7_FILIAL  = produto["CB7_FILIAL"],
-                    CB7_ORDSEP  = produto["CB7_ORDSEP"],
-                    CB7_PEDIDO  = produto["CB7_PEDIDO"],
-                    CB7_CLIENT  = produto["CB7_CLIENT"],
-                    CB7_LOJA    = produto["CB7_LOJA"],
-                    A1_NOME     = produto["A1_NOME"],
-                    CB7_DTEMIS  = produto["CB7_DTEMIS"],
-                    CB7_HREMIS  = produto["CB7_HREMIS"],
-                    CB7_DTINIS  = produto["CB7_DTINIS"],
-                    CB7_HRINIS  = produto["CB7_HRINIS"],
-                    CB7_DTFIMS  = produto["CB7_DTFIMS"],
-                    CB7_HRFIMS  = produto["CB7_HRFIMS"],
-                    CB7_NOTA    = produto["CB7_NOTA"],
-                    CB7_SERIE   = produto["CB7_SERIE"],
-                    CB8_PROD    = produto["CB8_PROD"],
-                    B1_DESC     = produto["B1_DESC"],
-                    LINE        = produto["LINE"]
+                    CB7_FILIAL=produto["CB7_FILIAL"],
+                    CB7_ORDSEP=produto["CB7_ORDSEP"],
+                    CB7_PEDIDO=produto["CB7_PEDIDO"],
+                    CB7_CLIENT=produto["CB7_CLIENT"],
+                    CB7_LOJA=produto["CB7_LOJA"],
+                    A1_NOME=produto["A1_NOME"],
+                    CB7_DTEMIS=produto["CB7_DTEMIS"],
+                    CB7_HREMIS=produto["CB7_HREMIS"],
+                    CB7_DTINIS=produto["CB7_DTINIS"],
+                    CB7_HRINIS=produto["CB7_HRINIS"],
+                    CB7_DTFIMS=produto["CB7_DTFIMS"],
+                    CB7_HRFIMS=produto["CB7_HRFIMS"],
+                    CB7_NOTA=produto["CB7_NOTA"],
+                    CB7_SERIE=produto["CB7_SERIE"],
+                    CB8_PROD=produto["CB8_PROD"],
+                    B1_DESC=produto["B1_DESC"],
+                    LINE=produto["LINE"]
                 )
-            else:
-                # Create new product
-                obj = Produto(            
-                        CB7_STATUS  = produto["CB7_STATUS"],
-                        CB7_FILIAL  = produto["CB7_FILIAL"],
-                        CB7_ORDSEP  = produto["CB7_ORDSEP"],
-                        CB7_PEDIDO  = produto["CB7_PEDIDO"],
-                        CB7_CLIENT  = produto["CB7_CLIENT"],
-                        CB7_LOJA    = produto["CB7_LOJA"],
-                        A1_NOME     = produto["A1_NOME"],
-                        CB7_DTEMIS  = produto["CB7_DTEMIS"],
-                        CB7_HREMIS  = produto["CB7_HREMIS"],
-                        CB7_DTINIS  = produto["CB7_DTINIS"],
-                        CB7_HRINIS  = produto["CB7_HRINIS"],
-                        CB7_DTFIMS  = produto["CB7_DTFIMS"],
-                        CB7_HRFIMS  = produto["CB7_HRFIMS"],
-                        CB7_NOTA    = produto["CB7_NOTA"],
-                        CB7_SERIE   = produto["CB7_SERIE"],
-                        CB8_PROD    = produto["CB8_PROD"],
-                        B1_DESC     = produto["B1_DESC"],
-                        LINE        = produto["LINE"]
-                    )
-                aux.append(obj)
+                obj.save()
                 new_records_count =+ 1
                 print(f"Creating product with CB7_ORDSEP: {produto['CB7_ORDSEP']}")
-                Produto.objects.bulk_create(aux)
+
 
         print(f"{new_records_count} new products created")
 
