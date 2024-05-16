@@ -22,3 +22,26 @@ def update_existing_record(new_record):
         existing_record.save()
 
         print(f"{new_record['CB7_ORDSEP']} atualizado")
+
+
+    # Obtendo todos os CB7_ORDSEP da resposta da API
+    cb7_ordsep_list = [produto["CB7_ORDSEP"] for produto in queryset_response['RETORNOS']]
+    
+    # Filtrando os objetos do banco de dados pelos CB7_ORDSEP da resposta da API
+    existing_products = Produto.objects.filter(CB7_ORDSEP__in=cb7_ordsep_list)
+    existing_products_dict = {obj.CB7_ORDSEP: obj for obj in existing_products}
+
+    for produto in queryset_response['RETORNOS']:
+        try:
+            existing_product = existing_products_dict.get(produto["CB7_ORDSEP"])
+
+            if existing_product:
+                # Verifica se o CB7_STATUS do objeto existente é diferente do CB7_STATUS recebido da API
+                if existing_product.CB7_STATUS != produto["CB7_STATUS"]:
+                    # Atualiza o CB7_STATUS do objeto existente
+                    existing_product.CB7_STATUS = produto["CB7_STATUS"]
+                    existing_product.save()
+                    updated_records_count += 1
+                    logger.info(f"Produto {produto['CB7_ORDSEP']} atualizado no banco de dados.")
+                else:
+                    logger.info(f"Produto {produto['CB7_ORDSEP']} já possui o mesmo CB7_STATUS no banco de dados.")
