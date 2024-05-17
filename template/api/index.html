@@ -92,6 +92,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="{% static 'javascript/index.js' %}"></script>
     <script>
+        
 
     function fetchTableData() {
         fetch('http://127.0.0.1:8000/fetch_data/')
@@ -126,6 +127,8 @@
         }
 
         fetchTableData();
+        setInterval(fetchTableData, 10000);
+        
 
     </script>
 </body>
