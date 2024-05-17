@@ -53,21 +53,21 @@ class Todo(models.Model):
 
 class Produto(models.Model):
 
-    CB7_STATUS  = models.IntegerField()                 # Campo status                                  -> Deve ser colorido
-    CB7_FILIAL  = models.CharField(max_length=50)       # Campo código da filial '01 / 02 / 03'                 * primarykey
-    CB7_ORDSEP  = models.CharField(max_length=50)       # Campo código ordem de separação 6 digitos
-    CB7_PEDIDO  = models.CharField(max_length=50)       # Campo código Pedido 6 digitos
-    CB7_CLIENT  = models.CharField(max_length=6)        # Campo código cliente C###### 
-    CB7_LOJA    = models.CharField(max_length=50)       # Campo código loja '01 / 02 / etc...'
-    A1_NOME     = models.CharField(max_length=50)       # Campo Nome representante
-    CB7_DTEMIS  = models.CharField(max_length=50)       # Campo data emissão
-    CB7_HREMIS  = models.CharField(max_length=5)        # Campo hora emissão
-    CB7_DTINIS  = models.CharField(max_length=50)       # Campo data inicio
-    CB7_HRINIS  = models.CharField(max_length=5)        # Campo hora inicio
-    CB7_DTFIMS  = models.CharField(max_length=50)       # Campo data fim 
-    CB7_HRFIMS  = models.CharField(max_length=5)        # Campo hora fim
-    CB7_NOTA    = models.CharField(max_length=50)       # Campo código da nota                                  * primarykey
-    CB7_SERIE   = models.CharField(max_length=50)       # Campo serie ' 1 '                                     * primarykey
-    CB8_PROD    = models.CharField(max_length=50)       # Campo codigo de produção
-    B1_DESC     = models.CharField(max_length=50)       # Campo descrição produto
+    CB7_STATUS  = models.IntegerField()                              # Campo status                                  -> Deve ser colorido
+    CB7_FILIAL  = models.CharField(max_length=50)                    # Campo código da filial '01 / 02 / 03'                 * primarykey
+    CB7_ORDSEP  = models.CharField(max_length=50, unique=True)       # Campo código ordem de separação 6 digitos
+    CB7_PEDIDO  = models.CharField(max_length=50)                    # Campo código Pedido 6 digitos
+    CB7_CLIENT  = models.CharField(max_length=6)                     # Campo código cliente C###### 
+    CB7_LOJA    = models.CharField(max_length=50)                    # Campo código loja '01 / 02 / etc...'
+    A1_NOME     = models.CharField(max_length=50)                    # Campo Nome representante
+    CB7_DTEMIS  = models.CharField(max_length=50)                    # Campo data emissão
+    CB7_HREMIS  = models.CharField(max_length=5)                     # Campo hora emissão
+    CB7_DTINIS  = models.CharField(max_length=50)                    # Campo data inicio
+    CB7_HRINIS  = models.CharField(max_length=5)                     # Campo hora inicio
+    CB7_DTFIMS  = models.CharField(max_length=50)                    # Campo data fim 
+    CB7_HRFIMS  = models.CharField(max_length=5)                     # Campo hora fim
+    CB7_NOTA    = models.CharField(max_length=50)                    # Campo código da nota                                  * primarykey
+    CB7_SERIE   = models.CharField(max_length=50)                    # Campo serie ' 1 '                                     * primarykey
+    CB8_PROD    = models.CharField(max_length=50)                    # Campo codigo de produção
+    B1_DESC     = models.CharField(max_length=50)                    # Campo descrição produto
     LINE        = models.IntegerField(default=0)    

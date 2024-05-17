@@ -1,21 +1,47 @@
-function updateStatusCounts() {
-            fetch('http://127.0.0.1:8000/update_status_counts/') // Replace with the actual URL to fetch the updated counts
-            .then(response => response.json())
-            .then(data => {
-                    const statusContainer = document.getElementById('status-container');
-                    const statusElements = statusContainer.querySelectorAll('#box2 p,#box3 p,#box4 p,#box5 p,#box6 p');
-                    // Mapeia os campos retornados para os campos no HTML
-                $('#box2').text(data['1']);
-                $('#box3').text(data['2']);
-                $('#box4').text(data['0']);
-                $('#box5').text(data['3']);
-                $('#box6').text(data['4']);
-            
-                    statusElements.forEach((element, index) => {
-                        element.textContent = data[String(index + 1)]; // Adjust the index to match the status values in the API response
-                    });
-                });
-        }
-        
-        // Call the function periodically (e.g., every 5 seconds)
-        setInterval(updateStatusCounts, 5000);
+def update_existing_record(new_record):
+    # Atualiza dados da tabela
+
+    existing_record = Produto.objects.filter(CB7_ORDSEP=new_record["CB7_ORDSEP"]).first()
+    if existing_record:
+        existing_record.CB7_STATUS  = new_record["CB7_STATUS"]
+        existing_record.CB7_FILIAL  = new_record["CB7_FILIAL"]
+        existing_record.CB7_PEDIDO  = new_record["CB7_PEDIDO"]
+        existing_record.CB7_CLIENT  = new_record["CB7_CLIENT"]
+        existing_record.CB7_LOJA    = new_record["CB7_LOJA"]
+        existing_record.A1_NOME     = new_record["A1_NOME"]
+        existing_record.CB7_DTEMIS  = new_record["CB7_DTEMIS"]
+        existing_record.CB7_HREMIS  = new_record["CB7_HREMIS"]
+        existing_record.CB7_DTINIS  = new_record["CB7_DTINIS"]
+        existing_record.CB7_HRINIS  = new_record["CB7_HRINIS"]
+        existing_record.CB7_DTFIMS  = new_record["CB7_DTFIMS"]
+        existing_record.CB7_HRFIMS  = new_record["CB7_HRFIMS"]
+        existing_record.CB7_NOTA    = new_record["CB7_NOTA"]
+        existing_record.CB7_SERIE   = new_record["CB7_SERIE"]
+        existing_record.CB8_PROD    = new_record["CB8_PROD"]
+        existing_record.B1_DESC     = new_record["B1_DESC"]
+        existing_record.save()
+
+        print(f"{new_record['CB7_ORDSEP']} atualizado")
+
+
+    # Obtendo todos os CB7_ORDSEP da resposta da API
+    cb7_ordsep_list = [produto["CB7_ORDSEP"] for produto in queryset_response['RETORNOS']]
+    
+    # Filtrando os objetos do banco de dados pelos CB7_ORDSEP da resposta da API
+    existing_products = Produto.objects.filter(CB7_ORDSEP__in=cb7_ordsep_list)
+    existing_products_dict = {obj.CB7_ORDSEP: obj for obj in existing_products}
+
+    for produto in queryset_response['RETORNOS']:
+        try:
+            existing_product = existing_products_dict.get(produto["CB7_ORDSEP"])
+
+            if existing_product:
+                # Verifica se o CB7_STATUS do objeto existente é diferente do CB7_STATUS recebido da API
+                if existing_product.CB7_STATUS != produto["CB7_STATUS"]:
+                    # Atualiza o CB7_STATUS do objeto existente
+                    existing_product.CB7_STATUS = produto["CB7_STATUS"]
+                    existing_product.save()
+                    updated_records_count += 1
+                    logger.info(f"Produto {produto['CB7_ORDSEP']} atualizado no banco de dados.")
+                else:
+                    logger.info(f"Produto {produto['CB7_ORDSEP']} já possui o mesmo CB7_STATUS no banco de dados.")

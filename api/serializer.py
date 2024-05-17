@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import User
+from .models import Produto
 
-class filtercode_serializer(serializers.ModelSerializer):
+class Produto_serializer(serializers.ModelSerializer):
     class Meta:
-        model   = User
-        fields  = ['__all__']
+        model   = Produto
+        fields  = '__all__'
