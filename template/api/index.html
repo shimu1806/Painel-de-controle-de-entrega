@@ -54,6 +54,19 @@
                 
                 <!-- container tabela -->
                 <div class="table-responsive-sm">
+
+                    <div class="pagination" style=
+                                                    "
+                                                    display: flex; 
+                                                    justify-content: space-between;
+                                                     ">
+                        <button id="first">Início</button>
+                        <button id="previous">Anterior</button>
+                        <span id="page-info">Página 1 de 1</span>
+                        <button id="next">Próximo</button>
+                        <button id="last">Fim</button>
+                    </div>
+
                     <table class="table table-dark table-hover">
                         <thead class="table table-dark">
                             <tr>
@@ -83,14 +96,17 @@
 
                     </table>
                     <!-- endtabela -->
-                </div> 
-            </section>
-        </article>
+                    
+                    
+                </div>
+            </div> 
+        </section>
+    </article>
         <!-- endcontainer mural -->               
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="{% static 'javascript/boxes.js' %}"></script>
     <script src="{% static 'javascript/table.js' %}"></script>
+    <script src="{% static 'javascript/filter_itens.js' %}"></script>
 </body>
 </html>

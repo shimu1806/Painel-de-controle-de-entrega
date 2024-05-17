@@ -1,47 +1,120 @@
-def update_existing_record(new_record):
-    # Atualiza dados da tabela
+analise meu script: 
+let currentPage = 1;
+const itemsPerPage = 25;
+let totalItems = 0;
+let tableData = [];
 
-    existing_record = Produto.objects.filter(CB7_ORDSEP=new_record["CB7_ORDSEP"]).first()
-    if existing_record:
-        existing_record.CB7_STATUS  = new_record["CB7_STATUS"]
-        existing_record.CB7_FILIAL  = new_record["CB7_FILIAL"]
-        existing_record.CB7_PEDIDO  = new_record["CB7_PEDIDO"]
-        existing_record.CB7_CLIENT  = new_record["CB7_CLIENT"]
-        existing_record.CB7_LOJA    = new_record["CB7_LOJA"]
-        existing_record.A1_NOME     = new_record["A1_NOME"]
-        existing_record.CB7_DTEMIS  = new_record["CB7_DTEMIS"]
-        existing_record.CB7_HREMIS  = new_record["CB7_HREMIS"]
-        existing_record.CB7_DTINIS  = new_record["CB7_DTINIS"]
-        existing_record.CB7_HRINIS  = new_record["CB7_HRINIS"]
-        existing_record.CB7_DTFIMS  = new_record["CB7_DTFIMS"]
-        existing_record.CB7_HRFIMS  = new_record["CB7_HRFIMS"]
-        existing_record.CB7_NOTA    = new_record["CB7_NOTA"]
-        existing_record.CB7_SERIE   = new_record["CB7_SERIE"]
-        existing_record.CB8_PROD    = new_record["CB8_PROD"]
-        existing_record.B1_DESC     = new_record["B1_DESC"]
-        existing_record.save()
+function fetchTableData() {
+    fetch('http://127.0.0.1:8000/fetch_data/')
+    .then(response => response.json())
+    .then(data => {
+        tableData = data;
+        totalItems = tableData.length;
+        displayTableData();
+        updateNavigationButtons();
+        updatePageInfo();
+    })
+    .catch(error => console.error('Error:', error));
+}
 
-        print(f"{new_record['CB7_ORDSEP']} atualizado")
+function displayTableData() {
+    const tableBody = document.querySelector('.table-group-divider');
+    tableBody.innerHTML = ''; // Limpa a tabela
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageData = tableData.slice(start, end);
+
+    pageData.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><span class="status-${item.CB7_STATUS}"></span></td>
+            <td>${item.CB7_FILIAL}</td>
+            <td>${item.CB7_ORDSEP}</td>
+            <td>${item.CB7_PEDIDO}</td>
+            <td>${item.CB7_CLIENT}</td>
+            <td>${item.CB7_LOJA}</td>
+            <td>${item.A1_NOME}</td>
+            <td>${item.CB7_DTEMIS}</td>
+            <td>${item.CB7_HREMIS}</td>
+            <td>${item.CB7_DTINIS}</td>
+            <td>${item.CB7_HRINIS}</td>
+            <td>${item.CB7_DTFIMS}</td>
+            <td>${item.CB7_HRFIMS}</td>
+            <td>${item.CB7_NOTA}</td>
+            <td>${item.CB7_SERIE}</td>
+            <td>${item.CB8_PROD}</td>
+            <td>${item.B1_DESC}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+function updateNavigationButtons() {
+    document.getElementById('previous').disabled = currentPage === 1;
+    document.getElementById('next').disabled = currentPage === Math.ceil(totalItems / itemsPerPage);
+    document.getElementById('first').disabled = currentPage === 1;
+    document.getElementById('last').disabled = currentPage === Math.ceil(totalItems / itemsPerPage);
+}
+
+function updatePageInfo() {
+    const pageInfo = document.getElementById('page-info');
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+}
+
+document.getElementById('previous').addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        displayTableData();
+        updateNavigationButtons();
+        updatePageInfo();
+    }
+});
+
+document.getElementById('next').addEventListener('click', () => {
+    if (currentPage < Math.ceil(totalItems / itemsPerPage)) {
+        currentPage++;
+        displayTableData();
+        updateNavigationButtons();
+        updatePageInfo();
+    }
+});
+
+document.getElementById('first').addEventListener('click', () => {
+    currentPage = 1;
+    displayTableData();
+    updateNavigationButtons();
+    updatePageInfo();
+});
+
+document.getElementById('last').addEventListener('click', () => {
+    currentPage = Math.ceil(totalItems / itemsPerPage);
+    displayTableData();
+    updateNavigationButtons();
+    updatePageInfo();
+});
+function updateStatusCounts() {
+    fetch('http://127.0.0.1:8000/update_status_counts/')
+        .then(response => response.json())
+        .then(data => {
+        const statusContainer = document.getElementById('status-container');
+  
+            // Update the status counts in the HTML element
+            statusContainer.querySelector('.box2 p').textContent = data['1'];
+            statusContainer.querySelector('.box3 p').textContent = data['2'];
+            statusContainer.querySelector('.box4 p').textContent = data['0'];
+            statusContainer.querySelector('.box5 p').textContent = data['3'];
+            statusContainer.querySelector('.box6 p').textContent = data['4'];
+        })
+    .catch(error => {
+        console.error('Error fetching status counts:', error);
+        });
+    }
+  
+// Call the function to update the status counts
+updateStatusCounts();
+fetchTableData();
+setInterval(fetchTableData, updateStatusCounts, 10000);
 
 
-    # Obtendo todos os CB7_ORDSEP da resposta da API
-    cb7_ordsep_list = [produto["CB7_ORDSEP"] for produto in queryset_response['RETORNOS']]
-    
-    # Filtrando os objetos do banco de dados pelos CB7_ORDSEP da resposta da API
-    existing_products = Produto.objects.filter(CB7_ORDSEP__in=cb7_ordsep_list)
-    existing_products_dict = {obj.CB7_ORDSEP: obj for obj in existing_products}
-
-    for produto in queryset_response['RETORNOS']:
-        try:
-            existing_product = existing_products_dict.get(produto["CB7_ORDSEP"])
-
-            if existing_product:
-                # Verifica se o CB7_STATUS do objeto existente é diferente do CB7_STATUS recebido da API
-                if existing_product.CB7_STATUS != produto["CB7_STATUS"]:
-                    # Atualiza o CB7_STATUS do objeto existente
-                    existing_product.CB7_STATUS = produto["CB7_STATUS"]
-                    existing_product.save()
-                    updated_records_count += 1
-                    logger.info(f"Produto {produto['CB7_ORDSEP']} atualizado no banco de dados.")
-                else:
-                    logger.info(f"Produto {produto['CB7_ORDSEP']} já possui o mesmo CB7_STATUS no banco de dados.")
+eu preciso que esse script interaja com um container chamado boxes, que tem uma checkbox que deve buscar todos os  statusContainer.querySelector e filtra-los de acordo com sua respectiva atribuição quando eu selecionar alguma checkbox, a tabela deve exibir apenas os objetos de toda a lista que correspondem ao status selecionado, sendo checkbox2 = 1, checkbox3 = 2, checkbox4 = 0, checkbox5 = 3, checkbox6 = 4
