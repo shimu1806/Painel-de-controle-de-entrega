@@ -28,6 +28,7 @@
 
 #boxes p {
     background-color: transparent;
+    font-size: 2.4rem;
 }
 
 .box1 {
@@ -45,25 +46,25 @@
 
 .box2 {
     background: #256AC6;
-    padding: 2rem;
+    padding: 1rem;
 }
 
 .box3 {
     background: #FFA317;
-    padding: 2rem;
+    padding: 1rem;
 }
 
 .box4 {
     background: #00BF63;
-    padding: 2rem;
+    padding: 1rem;
 }
 
 .box5 {
     background: #737373;
-    padding: 2rem;
+    padding: 1rem;
 }
 
 .box6 {
     background: #FF3131;
-    padding: 2rem;
+    padding: 1rem;
 }
