@@ -26,27 +26,27 @@
                     </div>
                     <div id="boxes" class="box2">
                         <h4>NÃO INICIADO</h4>
-                        <p></p>
+                        <p>Carregando...</p>
                         <input type="checkbox" id="checkbox2">
                     </div>
                     <div id="boxes" class="box3">
                         <h4>EM ANDAMENTO</h4>
-                        <p></p>
+                        <p>Carregando...</p>
                         <input type="checkbox" id="checkbox3">
                     </div>
                     <div id="boxes" class="box4">
                         <h4>FINALIZADO</h4>
-                        <p></p>
+                        <p>Carregando...</p>
                         <input type="checkbox" id="checkbox4">
                     </div>
                     <div id="boxes" class="box5">
                         <h4>PAUSA</h4>
-                        <p></p>
+                        <p>Carregando...</p>
                         <input type="checkbox" id="checkbox5">
                     </div>
                     <div id="boxes" class="box6">
                         <h4>DIVERGÊNCIA</h4>
-                        <p></p>
+                        <p>Carregando...</p>
                         <input type="checkbox" id="checkbox6">
                     </div>
                 </div>
@@ -64,28 +64,29 @@
                         <span id="page-info">Página 1 de 1</span>
                         <button id="next">Próximo</button>
                         <button id="last">Fim</button>
+                        
                     </div>
 
                     <table class="table table-dark table-hover">
                         <thead class="table table-dark" id="table-head">
                             <tr>
-                                <td data-column="CB7_STATUS">STATUS</td>
-                                <td data-column="CB7_FILIAL">FILIAL</td>
-                                <td data-column="CB7_ORDSEP">ORDEM</td>
-                                <td data-column="CB7_PEDIDO">PEDIDO</td>
-                                <td data-column="CB7_CLIENT">CLIENT</td>
-                                <td data-column="CB7_LOJA">LOJA</td>
-                                <td data-column="A1_NOME">NOME</td>
-                                <td data-column="CB7_DTEMIS">DTEMIS</td>    
-                                <td data-column="CB7_HREMIS">HREMIS</td>
-                                <td data-column="CB7_DTINIS">DTINIS</td>
-                                <td data-column="CB7_HRINIS">HRINIS</td>
-                                <td data-column="CB7_DTFIMS">DTFIMS</td>
-                                <td data-column="CB7_HRFIMS">HRFIMS</td>
-                                <td data-column="CB7_NOTA">NOTA</td>
-                                <td data-column="CB7_SERIE">SERIE</td>
-                                <td data-column="CB8_PROD">PROD</td>
-                                <td data-column="B1_DESC">DESC</td>
+                                <th data-column="CB7_STATUS">STATUS</th>
+                                <th data-column="CB7_FILIAL">FILIAL</th>
+                                <th data-column="CB7_ORDSEP">ORDEM</th>
+                                <th data-column="CB7_PEDIDO">PEDIDO</th>
+                                <th data-column="CB7_CLIENT">CLIENT</th>
+                                <th data-column="CB7_LOJA">LOJA</th>
+                                <th data-column="A1_NOME">NOME</th>
+                                <th data-column="CB7_DTEMIS">DTEMIS</th>    
+                                <th data-column="CB7_HREMIS">HREMIS</th>
+                                <th data-column="CB7_DTINIS">DTINIS</th>
+                                <th data-column="CB7_HRINIS">HRINIS</th>
+                                <th data-column="CB7_DTFIMS">DTFIMS</th>
+                                <th data-column="CB7_HRFIMS">HRFIMS</th>
+                                <th data-column="CB7_NOTA">NOTA</th>
+                                <th data-column="CB7_SERIE">SERIE</th>
+                                <th data-column="CB8_PROD">PROD</th>
+                                <th data-column="B1_DESC">DESC</th>
                             </tr>
                         </thead>
 
@@ -101,10 +102,13 @@
             </div> 
         </section>
     </article>
-        <!-- endcontainer mural -->               
+        <!-- endcontainer mural -->  
+        
+        
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="{% static 'javascript/table.js' %}"></script>
+   
 </body>
 </html>
