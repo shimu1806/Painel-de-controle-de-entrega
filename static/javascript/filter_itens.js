@@ -1,5 +1,5 @@
 // Adicione um evento de clique genérico para todos os cabeçalhos da coluna
-document.querySelectorAll("thead td").forEach(function(th, index) {
+document.querySelectorAll("thead th").forEach(function(th, index) {
     th.addEventListener("click", function() {
         filterTable(index); // Chame a função de filtragem com o índice da coluna clicada
     });
