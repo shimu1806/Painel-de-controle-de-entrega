@@ -21,33 +21,33 @@
 
                 <div class="container-mural" id="status-container">
 
-                    <div id="boxes" class="box1">
+                    <div id="status-filter" class="box1">
                         <img src="../../static/src/image.png">
                     </div>
-                    <div id="boxes" class="box2">
+                    <div id="status-filter" class="box2">
                         <h4>NÃO INICIADO</h4>
                         <p>Carregando...</p>
-                        <input type="checkbox" id="checkbox2">
+                        <input type="checkbox" id="checkbox2" class="filter-box" value="1">
                     </div>
-                    <div id="boxes" class="box3">
+                    <div id="status-filter" class="box3">
                         <h4>EM ANDAMENTO</h4>
                         <p>Carregando...</p>
-                        <input type="checkbox" id="checkbox3">
+                        <input type="checkbox" id="checkbox3" class="filter-box" value="2">
                     </div>
-                    <div id="boxes" class="box4">
+                    <div id="status-filter" class="box4">
                         <h4>FINALIZADO</h4>
                         <p>Carregando...</p>
-                        <input type="checkbox" id="checkbox4">
+                        <input type="checkbox" id="checkbox4" class="filter-box" value="0">
                     </div>
-                    <div id="boxes" class="box5">
+                    <div id="status-filter" class="box5">
                         <h4>PAUSA</h4>
                         <p>Carregando...</p>
-                        <input type="checkbox" id="checkbox5">
+                        <input type="checkbox" id="checkbox5" class="filter-box" value="3">
                     </div>
-                    <div id="boxes" class="box6">
+                    <div id="status-filter" class="box6">
                         <h4>DIVERGÊNCIA</h4>
                         <p>Carregando...</p>
-                        <input type="checkbox" id="checkbox6">
+                        <input type="checkbox" id="checkbox6" class="filter-box" value="4">
                     </div>
                 </div>
                 <!-- endstatus -->
@@ -55,10 +55,7 @@
                 <!-- container tabela -->
                 <div class="table-responsive-sm">
 
-                    <div class="pagination" style="
-                                                display: flex; 
-                                                justify-content: space-between;
-                                            ">
+                    <div id="pagination">
                         <button id="first">Início</button>
                         <button id="previous">Anterior</button>
                         <span id="page-info">Página 1 de 1</span>

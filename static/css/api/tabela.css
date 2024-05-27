@@ -1,3 +1,31 @@
 .table-responsive-sm th{
     cursor: pointer;
 }
+
+.table-responsive-sm{
+    background-color: #212529;
+
+}
+
+#pagination {
+    background-color: #212529;
+    display: flex; 
+    justify-content: left;
+    align-items: center;
+    margin: 0.2rem;
+}
+
+#pagination span{
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+}
+
+#pagination button {
+    padding: 0.2rem;
+    margin: 0.2rem;
+}
+
+#pagination button:hover {
+    background-color: azure;
+    color: rgb(0, 67, 190);
+}
