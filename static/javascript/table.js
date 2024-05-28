@@ -15,10 +15,9 @@ function fetchTableData() {
         .then(data => {
             tableData = data
             totalItems = tableData.length
-            filterstatus = tableData.CB7_STATUS
-            displayTableData() // Constrói os dados da tabela
-            updateNavigationButtons() // Atualiza os botões de navegação
-            updatePageInfo() // Atualiza as informações da página
+            displayTableData()          // Constrói os dados da tabela
+            updateNavigationButtons()   // Atualiza os botões de navegação
+            updatePageInfo()            // Atualiza as informações da página
         })
         .catch(error => console.error('Error:', error))
 }
@@ -41,11 +40,11 @@ function displayTableData() {
             <td>${item.CB7_CLIENT}</td>
             <td>${item.CB7_LOJA}</td>
             <td>${item.A1_NOME}</td>
-            <td>${item.CB7_DTEMIS}</td>
+            <td>${item.CB7_DTEMIS.slice(6, 8)}/${item.CB7_DTEMIS.slice(4, 6)}/${item.CB7_DTEMIS.slice(0, 4)}</td>
             <td>${item.CB7_HREMIS}</td>
-            <td>${item.CB7_DTINIS}</td>
+            <td>${item.CB7_DTINIS.slice(6, 8)}/${item.CB7_DTINIS.slice(4, 6)}/${item.CB7_DTINIS.slice(0, 4)}</td>
             <td>${item.CB7_HRINIS}</td>
-            <td>${item.CB7_DTFIMS}</td>
+            <td>${item.CB7_DTFIMS.slice(6, 8)}/${item.CB7_DTFIMS.slice(4, 6)}/${item.CB7_DTFIMS.slice(0, 4)}</td>
             <td>${item.CB7_HRFIMS}</td>
             <td>${item.CB7_NOTA}</td>
             <td>${item.CB7_SERIE}</td>
