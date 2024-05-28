@@ -15,20 +15,28 @@ function fetchTableData() {
         .then(data => {
             tableData = data
             totalItems = tableData.length
-            displayTableData() // Constrói os dados da tabela
-            updateNavigationButtons() // Atualiza os botões de navegação
-            updatePageInfo() // Atualiza as informações da página
+            displayTableData()          // Constrói os dados da tabela
+            updateNavigationButtons()   // Atualiza os botões de navegação
+            updatePageInfo()            // Atualiza as informações da página
         })
         .catch(error => console.error('Error:', error))
 }
 
+// Função para renderizar a tabela com os dados da página atual
 // Função para renderizar a tabela com os dados da página atual
 function displayTableData() {
     const tableBody = document.querySelector('.table-group-divider')
     tableBody.innerHTML = '' // Limpa a tabela
     const start = (currentPage - 1) * itemsPerPage
     const end = start + itemsPerPage
-    const pageData = tableData.slice(start, end)
+
+    // Ordena os dados com base no campo CB7_STATUS na ordem 4, 1, 2, 3, 0
+    const statusOrder = [4, 1, 2, 3, 0]
+    const sortedData = tableData.sort((a, b) => {
+        return statusOrder.indexOf(a.CB7_STATUS) - statusOrder.indexOf(b.CB7_STATUS)
+    })
+
+    const pageData = sortedData.slice(start, end)
 
     pageData.forEach(item => {
         const row = document.createElement('tr')
@@ -40,11 +48,11 @@ function displayTableData() {
             <td>${item.CB7_CLIENT}</td>
             <td>${item.CB7_LOJA}</td>
             <td>${item.A1_NOME}</td>
-            <td>${item.CB7_DTEMIS}</td>
+            <td>${item.CB7_DTEMIS.slice(6, 8)}/${item.CB7_DTEMIS.slice(4, 6)}/${item.CB7_DTEMIS.slice(0, 4)}</td>
             <td>${item.CB7_HREMIS}</td>
-            <td>${item.CB7_DTINIS}</td>
+            <td>${item.CB7_DTINIS.slice(6, 8)}/${item.CB7_DTINIS.slice(4, 6)}/${item.CB7_DTINIS.slice(0, 4)}</td>
             <td>${item.CB7_HRINIS}</td>
-            <td>${item.CB7_DTFIMS}</td>
+            <td>${item.CB7_DTFIMS.slice(6, 8)}/${item.CB7_DTFIMS.slice(4, 6)}/${item.CB7_DTFIMS.slice(0, 4)}</td>
             <td>${item.CB7_HRFIMS}</td>
             <td>${item.CB7_NOTA}</td>
             <td>${item.CB7_SERIE}</td>
@@ -54,7 +62,6 @@ function displayTableData() {
         tableBody.appendChild(row)
     })
 }
-
 // Função para ordenar os dados e renderizar a tabela
 function filterTable(columnIndex) {
     let direction = "asc" // Define a direção inicial como ascendente
