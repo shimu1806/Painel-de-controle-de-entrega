@@ -33,8 +33,12 @@ def login(request):
 def api_fetch(request):
 
     today_str = datetime.now().strftime('%Y%m%d')
+    display_today_str = datetime.now().strftime('%d-%m-%Y')
+
     lastweek_str = (datetime.now() - timedelta(days=7)).strftime('%Y%m%d')
-    print (today_str , lastweek_str)
+    display_lastweek_str = (datetime.now() - timedelta(days=7)).strftime('%d-%m-%Y')
+
+    print (f'Filtando do dia {display_today_str} ao dia {display_lastweek_str}')
 
     payload = {
         "PAGINA": 1,
@@ -42,7 +46,6 @@ def api_fetch(request):
         "QUERY": f"SELECT CASE WHEN (CB7_DIVERG='1') THEN '4' WHEN (CB7_STATPA = '1' AND CB7_DIVERG='') THEN '3' WHEN (CB7_STATUS IN ('1','2','3','4','5','6','7','8') AND CB7_STATPA = '' AND CB7_DIVERG='') THEN '2' WHEN (CB7_STATUS = '0' AND CB7_STATPA = '' AND CB7_DIVERG='') THEN '1' WHEN (CB7_STATUS = '9' AND CB7_STATPA = '' AND CB7_DIVERG='') THEN '0' END AS CB7_STATUS, CB7010.CB7_FILIAL, CB7010.CB7_ORDSEP, CB7010.CB7_PEDIDO, CB7010.CB7_CLIENT, CB7010.CB7_LOJA, SA1010.A1_NOME, CB7010.CB7_DTEMIS, CB7010.CB7_HREMIS, CB7010.CB7_DTINIS, CB7010.CB7_HRINIS, CB7010.CB7_DTFIMS, CB7010.CB7_HRFIMS, CB7010.CB7_NOTA, CB7010.CB7_SERIE, CB8010.CB8_PROD, SB1010.B1_DESC FROM CB7010 INNER JOIN CB8010 ON CB8_FILIAL = CB7010.CB7_FILIAL AND CB8_ORDSEP = CB7010.CB7_ORDSEP AND CB8_PEDIDO = CB7010.CB7_PEDIDO AND CB8010.D_E_L_E_T_ = '' INNER JOIN SA1010 ON A1_COD = CB7010.CB7_CLIENT AND A1_LOJA = CB7010.CB7_LOJA AND SA1010.D_E_L_E_T_ = '' INNER JOIN SB1010 ON B1_COD = CB8010.CB8_PROD AND SB1010.D_E_L_E_T_ = '' WHERE 0=0 AND CB7010.CB7_DTEMIS BETWEEN '{lastweek_str}' AND '{today_str}' AND CB7010.D_E_L_E_T_ = ''",
         "ORDEM": "CB7_STATUS, CB7_ORDSEP, CB7_PEDIDO"
     }
-    print (payload)
     response = requests.post('http://suntechsupplies170773.protheus.cloudtotvs.com.br:1907/rest/restqry', json=payload)
 
     # Parse the JSON response

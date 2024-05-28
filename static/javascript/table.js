@@ -23,12 +23,20 @@ function fetchTableData() {
 }
 
 // Função para renderizar a tabela com os dados da página atual
+// Função para renderizar a tabela com os dados da página atual
 function displayTableData() {
     const tableBody = document.querySelector('.table-group-divider')
     tableBody.innerHTML = '' // Limpa a tabela
     const start = (currentPage - 1) * itemsPerPage
     const end = start + itemsPerPage
-    const pageData = tableData.slice(start, end)
+
+    // Ordena os dados com base no campo CB7_STATUS na ordem 4, 1, 2, 3, 0
+    const statusOrder = [4, 1, 2, 3, 0]
+    const sortedData = tableData.sort((a, b) => {
+        return statusOrder.indexOf(a.CB7_STATUS) - statusOrder.indexOf(b.CB7_STATUS)
+    })
+
+    const pageData = sortedData.slice(start, end)
 
     pageData.forEach(item => {
         const row = document.createElement('tr')
@@ -54,7 +62,6 @@ function displayTableData() {
         tableBody.appendChild(row)
     })
 }
-
 // Função para ordenar os dados e renderizar a tabela
 function filterTable(columnIndex) {
     let direction = "asc" // Define a direção inicial como ascendente

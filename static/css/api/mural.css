@@ -10,7 +10,7 @@
 }
 
 .status-0 {
-    background-color: green;
+    background-color: #00BF63;
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -18,7 +18,7 @@
 }
 
 .status-1 {
-    background-color: blue;
+    background-color: #256AC6;
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -26,7 +26,7 @@
 }
 
 .status-2 {
-    background-color: yellow;
+    background-color: #FFA317;
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -34,7 +34,7 @@
 }
 
 .status-3 {
-    background-color: gray;
+    background-color: #737373;
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -42,7 +42,7 @@
 }
 
 .status-4 {
-    background-color: red;
+    background-color: #FF3131;
     width: 10px;
     height: 10px;
     border-radius: 50%;
