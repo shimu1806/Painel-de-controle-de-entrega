@@ -15,6 +15,7 @@ function fetchTableData() {
         .then(data => {
             tableData = data
             totalItems = tableData.length
+            filterstatus = tableData.CB7_STATUS
             displayTableData() // Constrói os dados da tabela
             updateNavigationButtons() // Atualiza os botões de navegação
             updatePageInfo() // Atualiza as informações da página
