@@ -1,24 +1,22 @@
 #table-head {
     vertical-align: baseline;
-    
 }
 
 .table-responsive-sm table {
     padding: .25rem .25rem; 
 }
 
-
-.table-responsive-sm th{
+.table-responsive-sm th {
     cursor: pointer;
     padding: 0 .2rem .2rem .2rem!important;
 }
 
-.table-responsive-sm th div{
+.table-responsive-sm th div {
     padding: 0 0 0 0;
     font-size: 1.6rem !important;
 }
 
-.table-responsive-sm{
+.table-responsive-sm {
     background-color: #212529;
     width: 100%;
     height: 100%;
@@ -31,17 +29,18 @@
 #pagination {
     background-color: #212529;
     display: flex; 
-    justify-content: left;
+    justify-content: space-between; /* Altera para space-between para distribuir os itens */
     align-items: center;
     margin: 0.2rem;
 }
 
-#pagination span{
+#pagination span {
     background-color: transparent;
     color: rgb(255, 255, 255);
 }
 
 #pagination button {
+    
     padding: 0.2rem;
     margin: 0.2rem;
 }
@@ -61,4 +60,13 @@
 .table-group-divider td:hover {
     overflow: visible;
     white-space: normal;
+}
+
+/* Novo estilo para o horário da última atualização */
+#last-fetch-time {
+    background-color: #212529;
+    font-size: 0.8rem; /* Tamanho pequeno */
+    color: #ffffff; /* Cor branca */
+    margin-left: auto; /* Empurra o elemento para a direita */
+    margin-right: 0.5rem; /* Espaçamento à direita */
 }
