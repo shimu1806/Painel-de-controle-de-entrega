@@ -1,5 +1,21 @@
+#table-head {
+    vertical-align: baseline;
+    
+}
+
+.table-responsive-sm table {
+    padding: .25rem .25rem; 
+}
+
+
 .table-responsive-sm th{
     cursor: pointer;
+    padding: 0 .2rem .2rem .2rem!important;
+}
+
+.table-responsive-sm th div{
+    padding: 0 0 0 0;
+    font-size: 1.6rem !important;
 }
 
 .table-responsive-sm{
@@ -33,4 +49,16 @@
 #pagination button:hover {
     background-color: azure;
     color: rgb(0, 67, 190);
+}
+
+.table-group-divider td {
+    max-width: 150px; /* Defina o tamanho máximo desejado */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-group-divider td:hover {
+    overflow: visible;
+    white-space: normal;
 }

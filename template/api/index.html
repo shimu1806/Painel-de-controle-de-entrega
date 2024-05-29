@@ -13,10 +13,10 @@
     <body>
 
 
+        <!-- container mural -->
         <article class="container-main">
-            <!-- container mural -->
             <section class="container-base">
-                
+                    
                 <!-- Contegem dos Status e checkbox filter -->
 
                 <div class="container-mural" id="status-container">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <!-- endstatus -->
-                
+                    
                 <!-- container tabela -->
                 <div class="table-responsive-sm">
 
@@ -64,48 +64,59 @@
                         
                     </div>
 
-                    <table class="table table-dark table-hover">
-                        <thead class="table table-dark" id="table-head">
-                            <tr>
-                                <th data-column="CB7_STATUS">STATUS</th>
-                                <th data-column="CB7_FILIAL">FILIAL</th>
-                                <th data-column="CB7_ORDSEP">ORDEM</th>
-                                <th data-column="CB7_PEDIDO">PEDIDO</th>
-                                <th data-column="CB7_CLIENT">CLIENT</th>
-                                <th data-column="CB7_LOJA">LOJA</th>
-                                <th data-column="A1_NOME">NOME</th>
-                                <th data-column="CB7_DTEMIS">DTEMIS</th>    
-                                <th data-column="CB7_HREMIS">HREMIS</th>
-                                <th data-column="CB7_DTINIS">DTINIS</th>
-                                <th data-column="CB7_HRINIS">HRINIS</th>
-                                <th data-column="CB7_DTFIMS">DTFIMS</th>
-                                <th data-column="CB7_HRFIMS">HRFIMS</th>
-                                <th data-column="CB7_NOTA">NOTA</th>
-                                <th data-column="CB7_SERIE">SERIE</th>
-                                <th data-column="CB8_PROD">PROD</th>
-                                <th data-column="B1_DESC">DESC</th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="table-group-divider">
-                            <tr class="table table-dark table-borderless" id="pagination"></tr>
-                        </tbody>
-
-                    </table>
-                    <!-- endtabela -->
+                        <!-- tabela cabeçalho -->
                     
-                    
-                </div>
-            </div> 
-        </section>
-    </article>
-        <!-- endcontainer mural -->  
-        
-        
+                        <table class="table table-dark table-hover">
+                            <thead class="table table-dark" id="table-head">
+                                <tr>
+                                    <th data-column="CB7_STATUS"><div>●</div></th>
+                                    <th data-column="CB7_FILIAL">FIL</th>
+                                    <th data-column="CB7_ORDSEP">ORDEM</th>
+                                    <th data-column="CB7_PEDIDO">PEDIDO</th>
+                                    <th data-column="CB7_CLIENT">CLIENT</th>
+                                    <th data-column="CB7_LOJA">LJ</th>
+                                    <th data-column="A1_NOME">NOME</th>
+                                    <th data-column="CB7_TPPED">TP</th>
+                                    <th data-column="CB7_DTEMIS">DTEMIS</th>    
+                                    <th data-column="CB7_HREMIS">HREMIS</th>
+                                    <th data-column="CB7_DTINIS">DTINIS</th>
+                                    <th data-column="CB7_HRINIS">HRINIS</th>
+                                    <th data-column="CB7_DTFIMS">DTFIMS</th>
+                                    <th data-column="CB7_HRFIMS">HRFIMS</th>
+                                    <th data-column="CB7_NOTA">NOTA</th>
+                                    <th data-column="CB8_TOTAL">QTD</th>
+                                </tr>
+                            </thead>
+                            
+                        <!-- end tabela cabeçalho -->
+
+                            <!-- tabela corpo -->
+
+                            <tbody class="table-group-divider">
+                                <tr class="table table-dark table-borderless" id="pagination"></tr>
+                            </tbody>
+
+                            <!-- end tabela corpo -->
+
+                        </table>
+                        <!-- end tabela -->
+         
+                    </div>
+                </div> 
+            </section>
+        </article>
+        <!-- end container mural -->  
+            
+            
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="{% static 'javascript/table.js' %}"></script>
-   
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="{% static 'javascript/table.js' %}"></script>
+        <script>
+            document.querySelectorAll('.status-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', filterTableByCheckboxes);
+        });
+        </script>
+
+    </body>
 </html>

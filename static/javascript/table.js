@@ -22,7 +22,7 @@ function fetchTableData() {
         .catch(error => console.error('Error:', error))
 }
 
-// Função para renderizar a tabela com os dados da página atual
+
 // Função para renderizar a tabela com os dados da página atual
 function displayTableData() {
     const tableBody = document.querySelector('.table-group-divider')
@@ -30,13 +30,11 @@ function displayTableData() {
     const start = (currentPage - 1) * itemsPerPage
     const end = start + itemsPerPage
 
-    // Ordena os dados com base no campo CB7_STATUS na ordem 4, 1, 2, 3, 0
-    const statusOrder = [4, 1, 2, 3, 0]
-    const sortedData = tableData.sort((a, b) => {
-        return statusOrder.indexOf(a.CB7_STATUS) - statusOrder.indexOf(b.CB7_STATUS)
-    })
+    // Ordena os dados na ordem desejada: 4, 1, 2, 3, 0
+    const order = ['4', '1', '2', '3', '0']
+    tableData.sort((a, b) => order.indexOf(a.CB7_STATUS) - order.indexOf(b.CB7_STATUS))
 
-    const pageData = sortedData.slice(start, end)
+    const pageData = tableData.slice(start, end)
 
     pageData.forEach(item => {
         const row = document.createElement('tr')
@@ -48,20 +46,21 @@ function displayTableData() {
             <td>${item.CB7_CLIENT}</td>
             <td>${item.CB7_LOJA}</td>
             <td>${item.A1_NOME}</td>
+            <td>${item.CB7_TPPED}</td>
             <td>${item.CB7_DTEMIS.slice(6, 8)}/${item.CB7_DTEMIS.slice(4, 6)}/${item.CB7_DTEMIS.slice(0, 4)}</td>
             <td>${item.CB7_HREMIS}</td>
             <td>${item.CB7_DTINIS.slice(6, 8)}/${item.CB7_DTINIS.slice(4, 6)}/${item.CB7_DTINIS.slice(0, 4)}</td>
             <td>${item.CB7_HRINIS}</td>
             <td>${item.CB7_DTFIMS.slice(6, 8)}/${item.CB7_DTFIMS.slice(4, 6)}/${item.CB7_DTFIMS.slice(0, 4)}</td>
             <td>${item.CB7_HRFIMS}</td>
-            <td>${item.CB7_NOTA}</td>
-            <td>${item.CB7_SERIE}</td>
-            <td>${item.CB8_PROD}</td>
-            <td>${item.B1_DESC}</td>
+            <td>${item.CB7_NOTA.slice(3, 9)}/${item.CB7_SERIE}</td>
+            <td>${item.CB8_TOTAL}</td>
         `
         tableBody.appendChild(row)
     })
 }
+
+
 // Função para ordenar os dados e renderizar a tabela
 function filterTable(columnIndex) {
     let direction = "asc" // Define a direção inicial como ascendente
