@@ -8,6 +8,7 @@ let tableData = []
 const endpointTable = '/fetch_data/'
 const endpointMural = '/update_status_counts/'
 
+
 // Função para obter dados do endpoint
 function fetchTableData() {
     fetch(endpointTable)
@@ -18,6 +19,11 @@ function fetchTableData() {
             displayTableData()          // Constrói os dados da tabela
             updateNavigationButtons()   // Atualiza os botões de navegação
             updatePageInfo()            // Atualiza as informações da página
+
+            // Atualiza o horário da última execução
+            const now = new Date();
+            const formattedTime = now.toLocaleString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('last-fetch-time').textContent = `Última atualização: ${formattedTime}`;
         })
         .catch(error => console.error('Error:', error))
 }

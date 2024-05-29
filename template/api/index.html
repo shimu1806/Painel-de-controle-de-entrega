@@ -52,17 +52,18 @@
                 </div>
                 <!-- endstatus -->
                     
-                <!-- container tabela -->
-                <div class="table-responsive-sm">
-
-                    <div id="pagination">
-                        <button id="first">Início</button>
-                        <button id="previous">Anterior</button>
-                        <span id="page-info">Página 1 de 1</span>
-                        <button id="next">Próximo</button>
-                        <button id="last">Fim</button>
-                        
-                    </div>
+                    <!-- container tabela -->
+                    <div class="table-responsive-sm">
+                        <div id="pagination">
+                            <div>
+                                <button id="first">Primeira</button>
+                                <button id="previous">Anterior</button>
+                                <span id="page-info">Página 1 de 1</span>
+                                <button id="next">Próxima</button>
+                                <button id="last">Última</button>
+                            </div>
+                            <h6 id="last-fetch-time">Última atualização: --:--:--</h6>
+                        </div>
 
                         <!-- tabela cabeçalho -->
                     
@@ -112,11 +113,6 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="{% static 'javascript/table.js' %}"></script>
-        <script>
-            document.querySelectorAll('.status-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', filterTableByCheckboxes);
-        });
-        </script>
 
     </body>
 </html>
