@@ -1,8 +1,7 @@
-#table-head {
-    vertical-align: baseline;
+
+#table-head{
     position: sticky;
-    top: 0;
-    z-index: 1;
+    top: 2.5rem;
 }
 
 
@@ -14,18 +13,16 @@
     border-style: solid;
     border-color: #343a40a8;
     border-radius: 0.4rem;
-    padding: 0.6rem;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-padding: 2rem;
+
 }
 
 .table-responsive-sm table {
     padding: .25rem .25rem; 
     border-collapse: collapse;
 }
-
-
 
 .table-responsive-sm th {
     cursor: pointer;
@@ -44,7 +41,10 @@
     justify-content: space-between; 
     align-items: center;
     margin: 0.2rem;
+    position: sticky;
+    top: 0;
 }
+
 
 #pagination div{
     background-color: #212529;
@@ -57,7 +57,6 @@
 }
 
 #pagination button {
-    
     padding: 0.2rem;
     margin: 0.2rem;
 }
@@ -67,11 +66,13 @@
     color: rgb(0, 67, 190);
 }
 
+
 .table-group-divider td {
     max-width: 150px; 
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    
 }
 
 .table-group-divider td:hover {
