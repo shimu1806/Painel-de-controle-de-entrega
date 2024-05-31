@@ -21,36 +21,40 @@ function fetchTableData() {
             updatePageInfo()            // Atualiza as informações da página
 
             // Atualiza o horário da última execução
-            const now = new Date();
-            const formattedTime = now.toLocaleString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            document.getElementById('last-fetch-time').textContent = `Última atualização: ${formattedTime}`;
+            const now = new Date()
+            const formattedTime = now.toLocaleString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+            document.getElementById('last-fetch-time').textContent = `Última atualização: ${formattedTime}`
         })
         .catch(error => console.error('Error:', error))
 }
 
 function getSelectedStatuses() {
-    const checkboxes = document.querySelectorAll('.filter-box:checked');
-    return Array.from(checkboxes).map(checkbox => checkbox.value);
+    const checkboxes = document.querySelectorAll('.filter-box:checked')
+    if (checkboxes.length === 0) {
+        // Se não houver nenhum checkbox selecionado, retorna todos os status
+        return ['0', '1', '2', '3', '4']
+    }
+    return Array.from(checkboxes).map(checkbox => checkbox.value)
 }
 
 function displayTableData() {
-    const tableBody = document.querySelector('.table-group-divider');
-    tableBody.innerHTML = ''; // Limpa a tabela
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
+    const tableBody = document.querySelector('.table-group-divider')
+    tableBody.innerHTML = '' // Limpa a tabela
+    const start = (currentPage - 1) * itemsPerPage
+    const end = start + itemsPerPage
 
     // Ordena os dados na ordem desejada: 4, 1, 2, 3, 0
-    const order = ['4', '1', '2', '3', '0'];
-    tableData.sort((a, b) => order.indexOf(a.CB7_STATUS) - order.indexOf(b.CB7_STATUS));
+    const order = ['4', '1', '2', '3', '0']
+    tableData.sort((a, b) => order.indexOf(a.CB7_STATUS) - order.indexOf(b.CB7_STATUS))
 
     // Filtra os dados com base nos checkboxes selecionados
-    const selectedStatuses = getSelectedStatuses();
-    const filteredData = tableData.filter(item => selectedStatuses.includes(item.CB7_STATUS));
+    const selectedStatuses = getSelectedStatuses()
+    const filteredData = tableData.filter(item => selectedStatuses.includes(item.CB7_STATUS))
 
-    const pageData = filteredData.slice(start, end);
+    const pageData = filteredData.slice(start, end)
 
     pageData.forEach(item => {
-        const row = document.createElement('tr');
+        const row = document.createElement('tr')
         row.innerHTML = `
             <td><span class="status-${item.CB7_STATUS}"></span></td>
             <td>${item.CB7_FILIAL}</td>
@@ -68,19 +72,19 @@ function displayTableData() {
             <td>${item.CB7_HRFIMS}</td>
             <td>${item.CB7_NOTA.slice(3, 9)}/${item.CB7_SERIE}</td>
             <td>${item.CB8_TOTAL}</td>
-        `;
-        tableBody.appendChild(row);
-    });
+        `
+        tableBody.appendChild(row)
+    })
 }
 
 document.querySelectorAll('.filter-box').forEach(checkbox => {
     checkbox.addEventListener('change', () => {
-        currentPage = 1; // Reset to the first page when filters change
-        displayTableData();
-        updateNavigationButtons();
-        updatePageInfo();
-    });
-});
+        currentPage = 1 // Reset to the first page when filters change
+        displayTableData()
+        updateNavigationButtons()
+        updatePageInfo()
+    })
+})
 
 // Função para ordenar os dados e renderizar a tabela
 function filterTable(columnIndex) {
@@ -120,25 +124,25 @@ document.querySelectorAll("thead th").forEach(function(th, index) {
 })
 
 function updateNavigationButtons() {
-    const selectedStatuses = getSelectedStatuses();
-    const filteredData = tableData.filter(item => selectedStatuses.includes(item.CB7_STATUS));
-    const totalFilteredItems = filteredData.length;
+    const selectedStatuses = getSelectedStatuses()
+    const filteredData = tableData.filter(item => selectedStatuses.includes(item.CB7_STATUS))
+    const totalFilteredItems = filteredData.length
 
-    document.getElementById('previous').disabled = currentPage === 1;
-    document.getElementById('next').disabled = currentPage === Math.ceil(totalFilteredItems / itemsPerPage);
-    document.getElementById('first').disabled = currentPage === 1;
-    document.getElementById('last').disabled = currentPage === Math.ceil(totalFilteredItems / itemsPerPage);
+    document.getElementById('previous').disabled = currentPage === 1
+    document.getElementById('next').disabled = currentPage === Math.ceil(totalFilteredItems / itemsPerPage)
+    document.getElementById('first').disabled = currentPage === 1
+    document.getElementById('last').disabled = currentPage === Math.ceil(totalFilteredItems / itemsPerPage)
 }
 
 // Função para atualizar as informações da página
 function updatePageInfo() {
-    const selectedStatuses = getSelectedStatuses();
-    const filteredData = tableData.filter(item => selectedStatuses.includes(item.CB7_STATUS));
-    const totalFilteredItems = filteredData.length;
-    const totalPages = Math.ceil(totalFilteredItems / itemsPerPage);
+    const selectedStatuses = getSelectedStatuses()
+    const filteredData = tableData.filter(item => selectedStatuses.includes(item.CB7_STATUS))
+    const totalFilteredItems = filteredData.length
+    const totalPages = Math.ceil(totalFilteredItems / itemsPerPage)
 
-    const pageInfo = document.getElementById('page-info');
-    pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
+    const pageInfo = document.getElementById('page-info')
+    pageInfo.textContent = `Página ${currentPage} de ${totalPages}`
 }
 
 // Função para mudar de página
