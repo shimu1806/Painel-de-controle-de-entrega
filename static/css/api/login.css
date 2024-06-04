@@ -1,0 +1,63 @@
+/* Estilos gerais */
+.login-body {
+    font-family: var(--font-family);
+    background-color: var(--secondary-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-container {
+    background-color: rgb(19, 18, 18);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(246, 246, 247, 0.445);
+    width: 300px;
+    text-align: center;
+}
+
+.form-container h1 {
+    margin-bottom: 20px;
+    color: var(--gray);
+}
+
+.login-form {
+    list-style: none;
+    padding: 0;
+}
+
+.login-form li {
+    margin-bottom: 15px;
+}
+
+.login-input {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--gray);
+}
+
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #0051ff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
