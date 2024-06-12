@@ -3,6 +3,8 @@
     background-color: rgb(255, 255, 255);
     display: flex;
     padding: 2rem;   
+    max-width: 1200px;
+    max-height: 150px;
 }
 
 .container-base > .container-mural,

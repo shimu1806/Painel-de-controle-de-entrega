@@ -9,6 +9,8 @@ const endpointTable = '/fetch_data/'
 const endpointMural = '/update_status_counts/'
 
 
+/*================================================================== FUNÇÃO MÃE ==================================================================*/
+
 // Função para obter dados do endpoint
 function fetchTableData() {
     fetch(endpointTable)
@@ -28,15 +30,20 @@ function fetchTableData() {
         .catch(error => console.error('Error:', error))
 }
 
+
+/*============================================================ CONSTRUTORES DA PÁGINA ============================================================*/
+
+// Função cria lista de filtro status
 function getSelectedStatuses() {
     const checkboxes = document.querySelectorAll('.filter-box:checked')
-    if (checkboxes.length === 0) {
+    if (checkboxes.length === 0) {        
         // Se não houver nenhum checkbox selecionado, retorna todos os status
         return ['0', '1', '2', '3', '4']
     }
     return Array.from(checkboxes).map(checkbox => checkbox.value)
 }
 
+// Função para construir tabela
 function displayTableData() {
     const tableBody = document.querySelector('.table-group-divider')
     tableBody.innerHTML = '' // Limpa a tabela
@@ -77,6 +84,24 @@ function displayTableData() {
     })
 }
 
+// Função para atualizar os contadores de status
+function updateStatusCounts() {
+    fetch(endpointMural)
+        .then(response => response.json())
+        .then(data => {
+            const statusContainer = document.getElementById('status-container')
+
+            // Atualiza os contadores de status no elemento HTML
+            statusContainer.querySelector('.box2 p').textContent = data['1']
+            statusContainer.querySelector('.box3 p').textContent = data['2']
+            statusContainer.querySelector('.box4 p').textContent = data['0']
+            statusContainer.querySelector('.box5 p').textContent = data['3']
+            statusContainer.querySelector('.box6 p').textContent = data['4']
+        })
+        .catch(error => {
+            console.error('Error fetching status counts:', error)
+        })
+}
 document.querySelectorAll('.filter-box').forEach(checkbox => {
     checkbox.addEventListener('change', () => {
         currentPage = 1 // Reset to the first page when filters change
@@ -86,6 +111,9 @@ document.querySelectorAll('.filter-box').forEach(checkbox => {
     })
 })
 
+/*============================================================ CONSTRUTORES DA PÁGINA ============================================================*/
+
+/*================================================================== PAGINADORES ==================================================================*/
 // Função para ordenar os dados e renderizar a tabela
 function filterTable(columnIndex) {
     let direction = "asc" // Define a direção inicial como ascendente
@@ -115,6 +143,7 @@ function filterTable(columnIndex) {
     updateNavigationButtons()
     updatePageInfo()
 }
+
 
 // Adicione um evento de clique genérico para todos os cabeçalhos da coluna
 document.querySelectorAll("thead th").forEach(function(th, index) {
@@ -187,24 +216,10 @@ document.getElementById('last').addEventListener('click', () => {
     updatePageInfo()
 })
 
-// Função para atualizar os contadores de status
-function updateStatusCounts() {
-    fetch(endpointMural)
-        .then(response => response.json())
-        .then(data => {
-            const statusContainer = document.getElementById('status-container')
 
-            // Atualiza os contadores de status no elemento HTML
-            statusContainer.querySelector('.box2 p').textContent = data['1']
-            statusContainer.querySelector('.box3 p').textContent = data['2']
-            statusContainer.querySelector('.box4 p').textContent = data['0']
-            statusContainer.querySelector('.box5 p').textContent = data['3']
-            statusContainer.querySelector('.box6 p').textContent = data['4']
-        })
-        .catch(error => {
-            console.error('Error fetching status counts:', error)
-        })
-}
+/*================================================================== PAGINADORES ==================================================================*/
+
+
 
 // Ciclo das funções
 updateStatusCounts()
