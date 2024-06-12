@@ -53,6 +53,7 @@ def api_fetch(request):
    
     # Extract the items within the 'RETORNOS' key
     return_items = queryset_response.get('RETORNOS', [])
+    return_items = [dict(item) for item in return_items]
 
     return return_items
 
@@ -86,4 +87,22 @@ def update_status_counts(request):
 
     # Return the counted status as a JsonResponse
     return JsonResponse(status_counts)
-    
+
+def status1_endpoint(request):
+    return_items = api_fetch(request)
+
+    # Filter the items with CB7_STATUS = '1'
+    filtered_items = [item for item in return_items if item.get('CB7_STATUS') == '1']
+
+    # Count the occurrences of each 'CB7_TPPED' value
+    cb7_tpped_counts = {}
+    for item in filtered_items:
+        cb7_tpped = item.get('CB7_TPPED')
+        if cb7_tpped in cb7_tpped_counts:
+            cb7_tpped_counts[cb7_tpped] += 1
+        else:
+            cb7_tpped_counts[cb7_tpped] = 1
+
+
+    # Return the filtered items as a JsonResponse
+    return JsonResponse(cb7_tpped_counts, safe=False)
