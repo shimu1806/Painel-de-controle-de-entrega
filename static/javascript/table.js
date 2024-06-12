@@ -7,6 +7,7 @@ let tableData = []
 // Endpoints
 const endpointTable = '/fetch_data/'
 const endpointMural = '/update_status_counts/'
+const endpointTPCounter = '/status1_endpoint/'
 
 
 /*================================================================== FUNÇÃO MÃE ==================================================================*/
@@ -111,9 +112,34 @@ document.querySelectorAll('.filter-box').forEach(checkbox => {
     })
 })
 
+function updateTPCounter() {
+    fetch(endpointTPCounter)
+        .then(response => response.json())
+        .then(data => {
+            const tpReport = document.getElementById('tp-report')
+
+            // Atualiza os contadores de status no elemento HTML
+            let formattedData = "<p class='formdata' style='margin: 0;background: #256AC6';>";
+            for (let key in data) {
+                formattedData += `${key}=>${data[key]}   `;
+            }
+            formattedData = formattedData.slice(0, -2); // Remove a última vírgula e nova linha
+            formattedData += '</p>';
+
+            tpReport.innerHTML = formattedData;
+
+            console.log(data)   
+        })
+        .catch(error => {
+            console.error('Error fetching status counts:', error)
+        })
+}
+
 /*============================================================ CONSTRUTORES DA PÁGINA ============================================================*/
 
 /*================================================================== PAGINADORES ==================================================================*/
+
+
 // Função para ordenar os dados e renderizar a tabela
 function filterTable(columnIndex) {
     let direction = "asc" // Define a direção inicial como ascendente
@@ -224,6 +250,8 @@ document.getElementById('last').addEventListener('click', () => {
 // Ciclo das funções
 updateStatusCounts()
 setInterval(updateStatusCounts, 20000)
+updateTPCounter()
+setInterval(updateTPCounter, 20000)
 fetchTableData()
 setInterval(fetchTableData, 20000)
 

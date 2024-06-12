@@ -1,11 +1,15 @@
-inclua no script uma função que, ao selecionar uma chackbox com classe filter-box, a qual representa os valores dentro da CB7_STATUS sendo elas "1" "2" "3" "4" e "0", ela filtre apenas o valor de status selecionado, excluindo as demais da tabela que é criada pelo displaydata. É possível selecionar multiplas checkbox
+@csrf_exempt
+def status1_endpoint_counter(request):
+    filtered_items = status1_endpoint(request)
 
+    # Count the occurrences of each 'CB7_TPPED' value
+    cb7_tpped_counts = {}
+    for item in filtered_items:
+        cb7_tpped = item.get('CB7_TPPED')
+        if cb7_tpped in cb7_tpped_counts:
+            cb7_tpped_counts[cb7_tpped] += 1
+        else:
+            cb7_tpped_counts[cb7_tpped] = 1
 
-
-// Função para filtrar os dados com base nas checkboxes selecionadas
-function filterByStatus() {
-    const selectedStatuses = Array.from(document.querySelectorAll('.filter-box:checked')).map(checkbox => checkbox.value)
-    const filteredData = tableData.filter(item => selectedStatuses.includes(item.CB7_STATUS))
-    displayFilteredData(filteredData)
-    console.log("filteredData")
-}
+    # Return the counted status as a JsonResponse
+    return JsonResponse(cb7_tpped_counts, safe=False)
