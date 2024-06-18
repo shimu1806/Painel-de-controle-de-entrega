@@ -112,6 +112,7 @@ document.querySelectorAll('.filter-box').forEach(checkbox => {
     })
 })
 
+// Função fazer display do contador de status1_endpoint
 function updateTPCounter() {
     fetch(endpointTPCounter)
         .then(response => response.json())
@@ -119,16 +120,14 @@ function updateTPCounter() {
             const tpReport = document.getElementById('tp-report')
 
             // Atualiza os contadores de status no elemento HTML
-            let formattedData = "<p class='formdata' style='margin: 0;background: #256AC6';>";
+            let formattedData = "<h5 class='formdata' style='margin: 0;background: #256AC6'; font-size: 0.6  rem;>";
             for (let key in data) {
-                formattedData += `${key}=>${data[key]}   `;
+                formattedData += `| ${key}-${data[key]}   `;
             }
-            formattedData = formattedData.slice(0, -2); // Remove a última vírgula e nova linha
-            formattedData += '</p>';
+            formattedData = formattedData.slice(0, -2);
+            formattedData += '|</h5>';
 
             tpReport.innerHTML = formattedData;
-
-            console.log(data)   
         })
         .catch(error => {
             console.error('Error fetching status counts:', error)

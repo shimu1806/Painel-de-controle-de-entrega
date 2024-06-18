@@ -9,10 +9,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
 
-@login_required(login_url="/login")
-def index(request):
-    return render(request, 'api/index.html')
-
 
 @csrf_exempt
 def login(request):
@@ -106,3 +102,7 @@ def status1_endpoint(request):
 
     # Return the filtered items as a JsonResponse
     return JsonResponse(cb7_tpped_counts, safe=False)
+
+@login_required(login_url="/login")
+def index(request):
+    return render(request, 'api/index.html')
